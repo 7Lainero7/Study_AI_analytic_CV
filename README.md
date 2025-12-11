@@ -169,7 +169,6 @@ flowchart TD
     style I fill:#ffffff
     style S fill:#ffffff
 ```
-
 ---
 
 ## Структура проекта
