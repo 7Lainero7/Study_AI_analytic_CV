@@ -124,7 +124,7 @@ flowchart TD
 ```mermaid
 flowchart TD
     subgraph DataPrep[Подготовка данных]
-        A[Резюме JSON] --> B[Извлечение навыков]
+        A[Исходные резюме JSON] --> B[Извлечение навыков]
         A --> C[Нормализация технологий]
         A --> D[Стандартизация локаций]
         B --> E[Векторная БД ChromaDB]
@@ -134,17 +134,17 @@ flowchart TD
     
     subgraph VectorDB[Векторное хранилище]
         E --> F[5006 резюме]
-        F --> G[Эмбеддинги<br>all-MiniLM-L6-v2]
-        F --> H[Метаданные:<br>навыки, опыт, локация]
+        F --> G[Эмбеддинги all-MiniLM-L6-v2]
+        F --> H[Метаданные]
     end
     
     subgraph QueryFlow[Обработка запроса]
-        I[Запрос пользователя] --> J[Анализ GigaChat]
-        J --> K[Структурированный план]
+        I[Пользовательский запрос] --> J[Анализ GigaChat]
+        J --> K[JSON-план поиска]
         K --> L[Поиск с фильтрами]
         G --> L
         H --> L
-        L --> M{Результаты}
+        L --> M{Результаты поиска}
         M -->|≥5| N[Достаточно]
         M -->|<5| O[Fallback]
         O --> N
@@ -160,11 +160,14 @@ flowchart TD
     DataPrep --> VectorDB
     VectorDB --> QueryFlow
     QueryFlow --> Analysis
-    
-    style DataPrep fill:#e1f5fe
-    style VectorDB fill:#f3e5f5
-    style QueryFlow fill:#e8f5e8
-    style Analysis fill:#fff3e0
+
+    style DataPrep fill:#fafafa
+    style VectorDB fill:#f8f8f8
+    style QueryFlow fill:#fafafa
+    style Analysis fill:#f8f8f8
+    style A fill:#ffffff
+    style I fill:#ffffff
+    style S fill:#ffffff
 ```
 
 ---
