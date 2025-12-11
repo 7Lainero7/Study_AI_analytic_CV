@@ -124,50 +124,51 @@ flowchart TD
 ```mermaid
 flowchart TD
     subgraph DataPrep[Подготовка данных]
-        A[Исходные резюме JSON] --> B[Извлечение навыков]
-        A --> C[Нормализация технологий]
-        A --> D[Стандартизация локаций]
-        B --> E[Векторная БД ChromaDB]
+        direction TB
+        A[Исходные резюме] --> B[Извлечение навыков]
+        A --> C[Нормализация]
+        A --> D[Стандартизация]
+        B --> E[ChromaDB]
         C --> E
         D --> E
     end
     
-    subgraph VectorDB[Векторное хранилище]
+    subgraph VectorDB[Хранилище]
         E --> F[5006 резюме]
-        F --> G[Эмбеддинги all-MiniLM-L6-v2]
+        F --> G[Эмбеддинги]
         F --> H[Метаданные]
     end
     
-    subgraph QueryFlow[Обработка запроса]
-        I[Пользовательский запрос] --> J[Анализ GigaChat]
-        J --> K[JSON-план поиска]
-        K --> L[Поиск с фильтрами]
+    subgraph QueryFlow[Запрос]
+        I[Запрос] --> J[Анализ]
+        J --> K[План]
+        K --> L[Поиск]
         G --> L
         H --> L
-        L --> M{Результаты поиска}
-        M -->|≥5| N[Достаточно]
+        L --> M{Результаты}
+        M -->|≥5| N[OK]
         M -->|<5| O[Fallback]
         O --> N
     end
     
-    subgraph Analysis[Анализ результатов]
-        N --> P[Оценка релевантности]
+    subgraph Analysis[Анализ]
+        N --> P[Оценка]
         P --> Q[Ранжирование]
-        Q --> R[Формирование ответа]
-        R --> S[Отправка в Telegram]
+        Q --> R[Ответ]
+        R --> S[Telegram]
     end
     
     DataPrep --> VectorDB
     VectorDB --> QueryFlow
     QueryFlow --> Analysis
 
-    style DataPrep fill:#fafafa
-    style VectorDB fill:#f8f8f8
-    style QueryFlow fill:#fafafa
-    style Analysis fill:#f8f8f8
-    style A fill:#ffffff
-    style I fill:#ffffff
-    style S fill:#ffffff
+    style DataPrep stroke:#ddd,stroke-width:2px
+    style VectorDB stroke:#ddd,stroke-width:2px
+    style QueryFlow stroke:#ddd,stroke-width:2px
+    style Analysis stroke:#ddd,stroke-width:2px
+    style A stroke:#666,stroke-width:1px
+    style I stroke:#666,stroke-width:1px
+    style S stroke:#666,stroke-width:1px
 ```
 ---
 
